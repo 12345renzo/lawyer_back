@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      target: dev  # Usa 'prod' para producción
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+    restart: unless-stopped
