@@ -1,14 +1,21 @@
+version: '3.8'
+
 services:
   app:
     build:
       context: .
-      target: dev  # Usa 'prod' para producción
+      target: dev
     ports:
       - "4000:4000"
     env_file:
       - .env
-    environment:
-      - NODE_ENV=development
     volumes:
       - ./:/app
+    extra_hosts:  # Solo necesario en Linux
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
+    networks:
+      - my_network
+networks:
+  my_network:
+    external: true
